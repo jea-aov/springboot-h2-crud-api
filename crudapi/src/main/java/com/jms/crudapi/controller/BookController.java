@@ -2,7 +2,6 @@ package com.jms.crudapi.controller;
 
 import java.util.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +24,7 @@ public class BookController {
     }
 
     @GetMapping("/getAllBooks")
-    public ResponseEntity<List<Book>> getAllBooks() {
+    public ResponseEntity<List<Book>> getAllBooks() throws Exception {
         try {
             List<Book> bookList = new ArrayList<>();
             bookRepo.findAll().forEach(bookList::add);
@@ -36,10 +35,9 @@ public class BookController {
 
             return new ResponseEntity<>(bookList, HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            // System.out.println(e);
+            throw new Exception("Internal Server Error");
         }
-
     }
 
     @GetMapping("/getBookById/{id}")
