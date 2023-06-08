@@ -2,6 +2,7 @@ package com.jms.crudapi.controller;
 
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,12 +17,11 @@ import com.jms.crudapi.repo.BookRepo;
 
 @RestController
 public class BookController {
-
     private BookRepo bookRepo;
 
-    // public void setBookRepo(BookRepo b) {
-    //     this.bookRepo = b;
-    // }
+    public BookController(BookRepo bookRepo) {
+        this.bookRepo = bookRepo;
+    }
 
     @GetMapping("/getAllBooks")
     public ResponseEntity<List<Book>> getAllBooks() {
@@ -35,7 +35,7 @@ public class BookController {
 
             return new ResponseEntity<>(bookList, HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e); 
+            System.out.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
