@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jms.crudapi.exception.ResourceNotFoundException;
 import com.jms.crudapi.model.Book;
 import com.jms.crudapi.repo.BookRepo;
 
@@ -49,7 +50,7 @@ public class BookController {
             return new ResponseEntity<>(bookData.get(), HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new ResourceNotFoundException("Book not found");
     }
 
     @PostMapping("/addBook")
@@ -72,7 +73,7 @@ public class BookController {
             return new ResponseEntity<>(bookObj, HttpStatus.OK);
         }
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        throw new ResourceNotFoundException("Book not found");
 
     }
 
