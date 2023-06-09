@@ -13,19 +13,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jms.crudapi.book.exception.ResourceNotFoundException;
 
-@RestController
-public class BookController {
-    private BookRepository bookRepo;
+import lombok.RequiredArgsConstructor;
 
-    public BookController(BookRepository bookRepo) {
-        this.bookRepo = bookRepo;
-    }
+@RestController
+@RequiredArgsConstructor
+public class BookController {
+    private final BookRepository bookRepo;
+    private final BookService bookService;
+
+    // public BookController(BookRepository bookRepo) {
+    //     this.bookRepo = bookRepo;
+    // }
 
     @GetMapping("/getAllBooks")
     public ResponseEntity<List<Book>> getAllBooks() throws Exception {
         try {
-            List<Book> bookList = new ArrayList<>();
-            bookRepo.findAll().forEach(bookList::add);
+            // List<Book> bookList = new ArrayList<>();
+            // bookRepo.findAll().forEach(bookList::add);
+
+            List<Book> bookList = bookService.getAllBooks();
 
             if (bookList.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
