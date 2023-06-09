@@ -1,4 +1,4 @@
-package com.jms.crudapi.controller;
+package com.jms.crudapi.book;
 
 import java.util.*;
 
@@ -11,15 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jms.crudapi.exception.ResourceNotFoundException;
-import com.jms.crudapi.model.Book;
-import com.jms.crudapi.repo.BookRepo;
+import com.jms.crudapi.book.exception.ResourceNotFoundException;
 
 @RestController
 public class BookController {
-    private BookRepo bookRepo;
+    private BookRepository bookRepo;
 
-    public BookController(BookRepo bookRepo) {
+    public BookController(BookRepository bookRepo) {
         this.bookRepo = bookRepo;
     }
 

@@ -1,4 +1,4 @@
-package com.jms.crudapi.model;
+package com.jms.crudapi.book;
 
 import lombok.*;
 

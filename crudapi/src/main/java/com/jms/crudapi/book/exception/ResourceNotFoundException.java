@@ -1,4 +1,4 @@
-package com.jms.crudapi.exception;
+package com.jms.crudapi.book.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
