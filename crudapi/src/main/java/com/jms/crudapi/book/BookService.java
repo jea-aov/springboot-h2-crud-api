@@ -63,9 +63,10 @@ public class BookService {
 
     // deleteBookById
     public void deleteBook(Long bookId) {
-        boolean exists = bookRepository.existsById(bookId);
-        if (!exists) {
-            throw new ResourceNotFoundException("Book not found");
+        Optional<Book> oldBook = bookRepository.findById(bookId);
+
+        if (!oldBook.isPresent()) {
+             throw new ResourceNotFoundException("Book not found");
         }
 
         bookRepository.deleteById(bookId);
