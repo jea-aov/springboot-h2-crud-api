@@ -11,19 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jms.crudapi.book.exception.ResourceNotFoundException;
-
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class BookController {
-    private final BookRepository bookRepo;
     private final BookService bookService;
-
-    // public BookController(BookRepository bookRepo) {
-    //     this.bookRepo = bookRepo;
-    // }
 
     @GetMapping("/getAllBooks")
     public ResponseEntity<List<Book>> getAllBooks() throws Exception {
@@ -46,42 +39,25 @@ public class BookController {
 
     @GetMapping("/getBookById/{id}")
     public ResponseEntity<Book> getBookById(@PathVariable Long id) {
-        Optional<Book> bookData = bookRepo.findById(id);
-
-        if (bookData.isPresent()) {
-            return new ResponseEntity<>(bookData.get(), HttpStatus.OK);
-        }
-
-        throw new ResourceNotFoundException("Book not found");
+        Book bookData = bookService.getBookById(id);
+        return new ResponseEntity<>(bookData, HttpStatus.OK);
     }
 
     @PostMapping("/addBook")
-    public ResponseEntity<Book> addBook(@RequestBody Book book) {
-        Book bookObj = bookRepo.save(book);
-
+    public ResponseEntity<Book> addBook(@RequestBody Book book) throws Exception {
+        Book bookObj = bookService.addBook(book);
         return new ResponseEntity<>(bookObj, HttpStatus.OK);
     }
 
     @PostMapping("/updateBookById/{id}")
     public ResponseEntity<Book> updateBookById(@PathVariable Long id, @RequestBody Book newBookData) {
-        Optional<Book> oldBookData = bookRepo.findById(id);
-
-        if (oldBookData.isPresent()) {
-            Book updatedBookData = oldBookData.get();
-            updatedBookData.setTitle(newBookData.getTitle());
-            updatedBookData.setAuthor(newBookData.getAuthor());
-
-            Book bookObj = bookRepo.save(updatedBookData);
-            return new ResponseEntity<>(bookObj, HttpStatus.OK);
-        }
-
-        throw new ResourceNotFoundException("Book not found");
-
+        Book updatedBook = bookService.updateBook(id, newBookData);
+        return new ResponseEntity<>(updatedBook, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteBookById/{id}")
     public ResponseEntity<HttpStatus> deleteBookById(@PathVariable Long id) {
-        bookRepo.deleteById(id);
+        bookService.deleteBook(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
