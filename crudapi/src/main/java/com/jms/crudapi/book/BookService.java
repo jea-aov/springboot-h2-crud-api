@@ -62,7 +62,7 @@ public class BookService {
     }
 
     // deleteBookById
-    public void deleteBook(Long bookId) {
+    public Boolean deleteBook(Long bookId) {
         Optional<Book> oldBook = bookRepository.findById(bookId);
 
         if (!oldBook.isPresent()) {
@@ -70,6 +70,7 @@ public class BookService {
         }
 
         bookRepository.deleteById(bookId);
+        return true;
     }
 
 }

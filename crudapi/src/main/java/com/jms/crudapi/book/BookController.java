@@ -46,7 +46,7 @@ public class BookController {
     @PostMapping("/addBook")
     public ResponseEntity<Book> addBook(@RequestBody Book book) throws Exception {
         Book bookObj = bookService.addBook(book);
-        return new ResponseEntity<>(bookObj, HttpStatus.OK);
+        return new ResponseEntity<>(bookObj, HttpStatus.CREATED);
     }
 
     @PostMapping("/updateBookById/{id}")
