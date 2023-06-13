@@ -3,8 +3,6 @@ package com.jms.crudapi.book;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jms.crudapi.book.exception.ResourceNotFoundException;

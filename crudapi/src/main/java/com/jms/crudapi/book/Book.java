@@ -14,6 +14,11 @@ import jakarta.persistence.*;
 @ToString
 public class Book {
     
+    public Book(String title, String author) {
+        this.title = title;
+        this.author = author;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
